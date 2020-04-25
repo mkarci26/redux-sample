@@ -14,6 +14,9 @@ import Register from '../components/Register';
 import Settings from '../components/Settings';
 import { store } from '../store';
 import { push } from 'react-router-redux';
+import articleList from '../reducers/articleList';
+
+store.injectReducer('articleList', articleList);
 
 const mapStateToProps = state => {
   return {
@@ -39,7 +42,7 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);

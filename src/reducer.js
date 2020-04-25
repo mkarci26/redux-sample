@@ -9,7 +9,7 @@ import profile from './reducers/profile';
 import settings from './reducers/settings';
 import { routerReducer } from 'react-router-redux';
 
-export default combineReducers({
+/*export default combineReducers({
   article,
   articleList,
   auth,
@@ -19,4 +19,20 @@ export default combineReducers({
   profile,
   settings,
   router: routerReducer
+});*/
+
+
+const createReducer = asyncReducers =>
+  combineReducers({
+	article,
+	auth,
+	common,
+	editor,
+	home,
+	profile,
+	settings,
+	router: routerReducer,
+	...asyncReducers
 });
+
+export default createReducer;

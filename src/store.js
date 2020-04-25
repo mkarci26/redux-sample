@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { promiseMiddleware, localStorageMiddleware } from './middleware';
-import reducer from './reducer';
+import createReducer from './reducer';
 
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory';
@@ -21,5 +21,21 @@ const getMiddleware = () => {
   }
 };
 
-export const store = createStore(
-  reducer, composeWithDevTools(getMiddleware()));
+//export const store = createStore(
+  //reducer, composeWithDevTools(getMiddleware()));
+
+
+const initializeStore = () => {
+  const store = createStore(createReducer(), composeWithDevTools(getMiddleware()));
+
+  store.asyncReducers = {};
+  store.injectReducer = (key, reducer) => {
+    store.asyncReducers[key] = reducer;
+    store.replaceReducer(createReducer(store.asyncReducers));
+    return store;
+  };
+
+  return store;
+};
+
+export const store = initializeStore();
