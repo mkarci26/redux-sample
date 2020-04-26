@@ -15,8 +15,19 @@ import Settings from '../components/Settings';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 import articleList from '../reducers/articleList';
+import profile from '../reducers/profile';
+import article from '../reducers/article';
 
-store.injectReducer('articleList', articleList);
+const asyncReducer = {
+	'articleList': articleList,
+	'article': article,
+	'profile': profile	
+}
+
+for(var i in asyncReducer){
+	console.log(i, asyncReducer[i]);
+	store.injectReducer(i, asyncReducer[i]);
+}
 
 const mapStateToProps = state => {
   return {

@@ -24,12 +24,10 @@ import { routerReducer } from 'react-router-redux';
 
 const createReducer = asyncReducers =>
   combineReducers({
-	article,
 	auth,
 	common,
 	editor,
 	home,
-	profile,
 	settings,
 	router: routerReducer,
 	...asyncReducers
